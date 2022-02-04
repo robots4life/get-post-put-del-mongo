@@ -1,0 +1,18 @@
+{
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"editor.formatOnSave": true,
+"editor.formatOnPaste": false,
+"prettier.requireConfig": true,
+// https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2
+"editor.bracketPairColorization.enabled": true,
+"editor.guides.bracketPairs": "active",
+"editor.tabCompletion": "on",
+// https://stackoverflow.com/questions/54827043/how-to-disable-abc-suggestion-on-vs-code
+"editor.suggest.showWords": false,
+"editor.wordBasedSuggestions": false,
+"editor.snippetSuggestions": "top",
+"javascript.suggest.names": false,
+"prettier.configPath": "/shared/httpd/get-post-put-del-mongo/.prettierrc.json",
+"prettier.prettierPath": "/shared/httpd/get-post-put-del-mongo/node_modules/prettier",
+"prettier.ignorePath": "/shared/httpd/get-post-put-del-mongo/.prettierignore"
+}
