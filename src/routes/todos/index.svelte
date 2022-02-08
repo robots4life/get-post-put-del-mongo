@@ -1,10 +1,13 @@
 <script>
 	export let todos;
 
-	let todoText;
+	let todoText = '';
 
 	function addTodo() {
-		console.log(todoText);
+		if (todoText !== '') {
+			console.log(todoText);
+			todoText = '';
+		}
 	}
 </script>
 
@@ -18,5 +21,5 @@
 
 <h2>Add Todo</h2>
 
-<input type="text" bind:value="{todoText}" />
+<input type="text" bind:value="{todoText}" placeholder="Add Todo" />
 <button on:click="{addTodo}">Add Todo</button>
