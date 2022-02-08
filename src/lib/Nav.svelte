@@ -5,3 +5,12 @@
 		<li><a href="/completed">COMPLETED TODOS</a></li>
 	</ul>
 </nav>
+
+<style>
+	nav {
+		font-size: 1.2rem;
+	}
+	nav > ul > li {
+		padding: 0.2rem;
+	}
+</style>
