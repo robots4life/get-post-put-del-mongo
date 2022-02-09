@@ -16,6 +16,55 @@
 			console.log(error);
 		}
 	}
+
+	// add a todo
+	let todoPayload,
+		formValueName,
+		formValueEmail,
+		formValueAge,
+		formValueTodoDate,
+		todoPayloadJSON;
+	formValueName = 'John Smith';
+	formValueEmail = 'john@example.com';
+	formValueAge = '45';
+	formValueTodoDate = Date.now(); // Unix timestamp https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now
+
+	todoPayload = {
+		formValueName,
+		formValueEmail,
+		formValueAge,
+		formValueTodoDate
+	};
+	// console.log(todoPayload);
+
+	// send the todo as JSON
+	todoPayloadJSON = JSON.stringify(todoPayload);
+	// console.log(todoPayloadJSON);
+
+	async function addTodo() {
+		console.log('Hello from addTodo function');
+
+		// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#uploading_json_data
+		// upload the todo
+		const response = await fetch('/todos', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: todoPayloadJSON
+		});
+		// ATTENTION !
+		// now here the data we get back from the response is the /todos´ page HTML
+		// since that is what the async export get() /todos page is returning
+		// *1
+		// However, when we log the request data on the server
+		// we correctly get the payload as JSON
+
+		// check both, your terminal and the browser console to
+		// understand 100% what is happening
+		const data = await response.text();
+		console.log(data);
+	}
 </script>
 
 {#each todos as todo}
@@ -23,3 +72,11 @@
 {/each}
 
 <button on:click="{fetchTodos}">Fetch Todos From Shadow Endpoint</button>
+
+<hr />
+
+<input type="text" label="name" name="name" bind:value="{formValueName}" />
+<input type="text" label="email" name="email" bind:value="{formValueEmail}" />
+<input type="text" label="age" name="age" bind:value="{formValueAge}" />
+<input type="text" label="date" name="date" bind:value="{formValueTodoDate}" />
+<button on:click="{addTodo}">Add Todo</button>
