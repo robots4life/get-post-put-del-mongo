@@ -3,8 +3,8 @@ import clientPromise from '$lib/db';
 export async function get(request) {
 	try {
 		console.log('index.json.js');
-		console.log(Date.now());
-		console.log(request.url.href);
+		// console.log(Date.now());
+		// console.log(request.url.href);
 
 		// ==> so the temporary solution is to make an index.json.js file
 		// under the same route and direct fetch requests to that endpoint
@@ -24,7 +24,7 @@ export async function get(request) {
 		const collection = db.collection(collectionName);
 
 		// show all documents in the collection in an array
-		let todos = await collection.find().toArray();
+		let latestTodos = await collection.find().toArray();
 		// console.log(todos);
 
 		// if we like we can send todos as JSON
@@ -39,7 +39,7 @@ export async function get(request) {
 		return {
 			status: 200,
 			body: {
-				todos
+				latestTodos
 			}
 		};
 	} catch (error) {

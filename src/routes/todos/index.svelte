@@ -6,16 +6,20 @@
 	// todos = JSON.parse(todos);
 
 	// fetching todos from the collection on click of a button
+	export let latestTodos;
 	async function fetchTodos() {
 		try {
 			const response = await fetch('/todos.json');
-			console.log(response);
+			// .json parses a JSON response into native JavaScript objects
+			latestTodos = await response.json();
+			console.log(latestTodos);
 		} catch (error) {
 			console.log('ERROR');
-
 			console.log(error);
 		}
 	}
+
+	// let promise = fetchTodos();
 
 	// add a todo
 	let todoPayload,
@@ -72,6 +76,8 @@
 {/each}
 
 <button on:click="{fetchTodos}">Fetch Todos From Shadow Endpoint</button>
+
+{JSON.stringify(latestTodos)}
 
 <hr />
 
