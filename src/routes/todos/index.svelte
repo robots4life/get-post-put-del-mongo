@@ -8,11 +8,11 @@
 	// fetching todos from the collection on click of a button
 	async function fetchTodos() {
 		try {
-			const response = await fetch('/todos');
-			const fetchedTodos = await response.json();
-			console.log(fetchedTodos);
+			const response = await fetch('/todos.json');
+			console.log(response);
 		} catch (error) {
 			console.log('ERROR');
+
 			console.log(error);
 		}
 	}

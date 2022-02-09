@@ -2,16 +2,9 @@ import clientPromise from '$lib/db';
 
 export async function get(request) {
 	try {
-		// let's try and see if we can catch the fetchPosts request from the /todos route ??
-		// console.log(request);
-		console.log('index.js');
+		console.log('index.json.js');
 		console.log(Date.now());
 		console.log(request.url.href);
-
-		// No ! This is currently not possible.
-		// https://github.com/sveltejs/kit/issues/3532
-		// "the initial GET would be populated with todos,
-		// but when rendering the page following a POST to /todos, the todos prop would be undefined."
 
 		// ==> so the temporary solution is to make an index.json.js file
 		// under the same route and direct fetch requests to that endpoint
