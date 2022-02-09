@@ -22,7 +22,7 @@ export async function get(request) {
 		// if we like we can send todos as JSON
 		// and parse them on the client
 		// but this step is not necessary
-		todos = JSON.stringify(todos);
+		// todos = JSON.stringify(todos);
 
 		// show all completed todos in the collection in an array
 		// const todos = await collection.find(completed).toArray();
