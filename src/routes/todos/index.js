@@ -4,9 +4,9 @@ export async function get(request) {
 	try {
 		// let's try and see if we can catch the fetchPosts request from the /todos route ??
 		// console.log(request);
-		console.log('index.js');
 		// console.log(Date.now());
-		console.log(request.url.href);
+		// console.log(request.url.href);
+		console.log('index.js');
 
 		// No ! This is currently not possible.
 		// https://github.com/sveltejs/kit/issues/3532
@@ -20,8 +20,8 @@ export async function get(request) {
 		// http://localhost:3000/todos?completed=true
 		// http://localhost:3000/todos?completed=false
 		const completed = request.url.searchParams.get('completed') === 'true' ? true : false;
-		console.log('completed ?');
-		console.log(completed);
+		// console.log('completed ?');
+		// console.log(completed);
 
 		// we import the clientPromise from $lib/db.js
 		const dbConnection = await clientPromise;
@@ -32,7 +32,7 @@ export async function get(request) {
 
 		// show all documents in the collection in an array
 		let todos = await collection.find().toArray();
-		// console.log(todos);
+		console.log(todos);
 
 		// if we like we can send todos as JSON
 		// and parse them on the client
