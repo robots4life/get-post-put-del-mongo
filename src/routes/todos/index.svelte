@@ -1,64 +1,70 @@
 <script context="module">
-	export async function load({ params, fetch, session, stuff }) {
-		try {
-			const url = '/todos/api.json';
-			const response = await fetch(url);
+	// SHADOW ENDPOINT
+	//
+	// The thing is, because of "shadow endpoints" we do not need the "load" function here any more
+	//
+	// SHADOW ENDPOINT
+	// ...
+	// export async function load({ params, fetch, session, stuff }) {
+	// 	try {
+	// 		const url = '/todos/api.json';
+	// 		const response = await fetch(url);
 
-			// AAA
-			// if we return the todos data from api.json.js in an ARRAY like so
-			// body: todos
-			// then we return the todos as props inside an object
+	// 		// AAA
+	// 		// if we return the todos data from api.json.js in an ARRAY like so
+	// 		// body: todos
+	// 		// then we return the todos as props inside an object
 
-			// in the end we will need "array-like objects" so {[],[],[]}
+	// 		// in the end we will need "array-like objects" so {[],[],[]}
 
-			// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
-			// Note that despite the method being named json(), the result is not JSON but is instead
-			// the result of taking JSON as input and parsing it to produce a JavaScript object.
-			const todos = await response.json();
-			console.log('load function');
-			console.log(todos);
+	// 		// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+	// 		// Note that despite the method being named json(), the result is not JSON but is instead
+	// 		// the result of taking JSON as input and parsing it to produce a JavaScript object.
+	// 		const todos = await response.json();
+	// 		console.log('load function');
+	// 		console.log(todos);
 
-			if (response.ok) {
-				return {
-					props: {
-						todos
-					}
-				};
-			}
+	// 		if (response.ok) {
+	// 			return {
+	// 				props: {
+	// 					todos
+	// 				}
+	// 			};
+	// 		}
 
-			// BBB
-			// if we return the todos data from api.json.js in an OBJECT like so
-			// body: {
-			// 	todos
-			// }
-			// then we return the todos as props inside an object with
-			// a key of "todos" that has a value of the returned todosObject with property todos
+	// 		// BBB
+	// 		// if we return the todos data from api.json.js in an OBJECT like so
+	// 		// body: {
+	// 		// 	todos
+	// 		// }
+	// 		// then we return the todos as props inside an object with
+	// 		// a key of "todos" that has a value of the returned todosObject with property todos
 
-			// in the end we will need "array-like objects" so {[],[],[]}
+	// 		// in the end we will need "array-like objects" so {[],[],[]}
 
-			// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
-			// Note that despite the method being named json(), the result is not JSON but is instead
-			// the result of taking JSON as input and parsing it to produce a JavaScript object.
-			// const todosObject = await response.json();
-			// console.log(todosObject);
+	// 		// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+	// 		// Note that despite the method being named json(), the result is not JSON but is instead
+	// 		// the result of taking JSON as input and parsing it to produce a JavaScript object.
+	// 		// const todosObject = await response.json();
+	// 		// console.log(todosObject);
 
-			// if (response.ok) {
-			// 	return {
-			// 		props: {
-			// 			todos: todosObject.todos
-			// 		}
-			// 	};
-			// }
-		} catch (error) {
-			console.log('ERROR');
-			console.log(error);
+	// 		// if (response.ok) {
+	// 		// 	return {
+	// 		// 		props: {
+	// 		// 			todos: todosObject.todos
+	// 		// 		}
+	// 		// 	};
+	// 		// }
+	// 	} catch (error) {
+	// 		console.log('ERROR');
+	// 		console.log(error);
 
-			return {
-				status: response.status,
-				error: new Error(`Could not load url`)
-			};
-		}
-	}
+	// 		return {
+	// 			status: response.status,
+	// 			error: new Error(`Could not load url`)
+	// 		};
+	// 	}
+	// }
 </script>
 
 <script>
@@ -66,11 +72,16 @@
 	// this prop comes from the /todos/index.js and is loaded there and displayed here
 	// when loading or navigating to the /todos route
 	export let todos;
+	console.log(todos);
 
 	// keep client up to date or in sync with the server side todos
 	// run this after a todo is added, changed or deleted on the server
 	async function fetchTodos() {
 		const url = '/todos/api.json';
+		// we cannot get rid of the api.json.js or index.json.js endpoint
+		// since the fetch request return a "page object?" with the
+		// todos props therein as opposed to just the todos as JSON data
+		// const url = '/todos';
 		const response = await fetch(url);
 		// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
 		// Note that despite the method being named json(), the result is not JSON but is instead
@@ -115,7 +126,7 @@
 
 	name = 'John Smith';
 	email = 'john@example.com';
-	age = '45';
+	age = '23';
 	todoDate = Date.now();
 	completed = false;
 
