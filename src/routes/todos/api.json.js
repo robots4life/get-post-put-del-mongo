@@ -73,6 +73,8 @@ export async function get(request) {
 			*/
 
 			// does not work
+			// ATTENTION !
+			// if we return the todos as an object then read BBB in /todos/index.svelte
 			// body: {
 			// 	todos
 			// }
@@ -81,6 +83,9 @@ export async function get(request) {
 			// I think for the API JSON can be passed as it
 			// whereas when returning a page get request the props need to be
 			// wrapped in an object..
+
+			// ATTENTION !
+			// if we return the todos as an array then read AAA in /todos/index.svelte
 			body: todos
 		};
 	} catch (error) {

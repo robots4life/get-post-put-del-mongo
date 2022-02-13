@@ -32,7 +32,7 @@ export async function get(request) {
 
 		// show all documents in the collection in an array
 		let todos = await collection.find().toArray();
-		console.log(todos);
+		// console.log(todos);
 
 		// if we like we can send todos as JSON
 		// and parse them on the client
@@ -66,7 +66,7 @@ export async function post({ request }) {
 	// from the post request
 	// check both, your terminal and the browser console to
 	// understand 100% what is happening
-	console.log(todoPayload);
+	// console.log(todoPayload);
 
 	// now let's post the data in our collection
 

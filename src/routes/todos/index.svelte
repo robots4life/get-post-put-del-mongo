@@ -3,8 +3,20 @@
 		try {
 			const url = '/todos/api.json';
 			const response = await fetch(url);
+
+			// AAA
+			// if we return the todos data from api.json.js in an ARRAY like so
+			// body: todos
+			// then we return the todos as props inside an object
+
+			// in the end we will need "array-like objects" so {[],[],[]}
+
+			// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+			// Note that despite the method being named json(), the result is not JSON but is instead
+			// the result of taking JSON as input and parsing it to produce a JavaScript object.
 			const todos = await response.json();
-			// console.log(todos);
+			console.log('load function');
+			console.log(todos);
 
 			if (response.ok) {
 				return {
@@ -13,6 +25,30 @@
 					}
 				};
 			}
+
+			// BBB
+			// if we return the todos data from api.json.js in an OBJECT like so
+			// body: {
+			// 	todos
+			// }
+			// then we return the todos as props inside an object with
+			// a key of "todos" that has a value of the returned todosObject with property todos
+
+			// in the end we will need "array-like objects" so {[],[],[]}
+
+			// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+			// Note that despite the method being named json(), the result is not JSON but is instead
+			// the result of taking JSON as input and parsing it to produce a JavaScript object.
+			// const todosObject = await response.json();
+			// console.log(todosObject);
+
+			// if (response.ok) {
+			// 	return {
+			// 		props: {
+			// 			todos: todosObject.todos
+			// 		}
+			// 	};
+			// }
 		} catch (error) {
 			console.log('ERROR');
 			console.log(error);
@@ -31,10 +67,27 @@
 	// when loading or navigating to the /todos route
 	export let todos;
 
+	// keep client up to date or in sync with the server side todos
+	// run this after a todo is added, changed or deleted on the server
+	async function fetchTodos() {
+		const url = '/todos/api.json';
+		const response = await fetch(url);
+		// https://developer.mozilla.org/en-US/docs/Web/API/Response/json
+		// Note that despite the method being named json(), the result is not JSON but is instead
+		// the result of taking JSON as input and parsing it to produce a JavaScript object.
+		// this cannot be named todos because then we have an assignment to constant variable
+		// so we name this latestTodos
+		const latestTodos = await response.json();
+
+		// here, finally, we update the exported props "todos" in the client
+		// with the latest todos from the server
+		todos = latestTodos;
+	}
+
 	// load external data
 	async function fetchPosts() {
-		let response = await fetch('https://css-tricks.com/wp-json/wp/v2/posts');
-		let wpPosts = await response.json();
+		const response = await fetch('https://css-tricks.com/wp-json/wp/v2/posts');
+		const wpPosts = await response.json();
 		return wpPosts;
 	}
 	const wpPostsPromise = fetchPosts();
@@ -50,8 +103,8 @@
 	function buttonFetchPosts() {
 		// load external data on click of button function
 		async function fetchPostsJSONPlaceholder() {
-			let response = await fetch('https://jsonplaceholder.typicode.com/posts');
-			let placeholderPosts = await response.json();
+			const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+			const placeholderPosts = await response.json();
 			return placeholderPosts;
 		}
 		placeholderPostsPromise = fetchPostsJSONPlaceholder();
@@ -97,6 +150,10 @@
 		// understand 100% what is happening
 		const data = await response.text();
 		console.log(data);
+
+		// keep client up to date or in sync with the server side todos
+		// run this after a todo is added, changed or deleted on the server
+		fetchTodos();
 	}
 </script>
 
