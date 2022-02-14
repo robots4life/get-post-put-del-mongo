@@ -60,9 +60,9 @@
 
 <input type="text" label="name" name="name" bind:value="{name}" />
 <input type="text" label="email" name="email" bind:value="{email}" />
-<input type="text" label="email" name="age" bind:value="{age}" />
-<input type="text" label="age" name="todoDate" bind:value="{todoDate}" />
-<input type="text" label="date" name="completed" bind:value="{completed}" />
+<input type="text" label="age" name="age" bind:value="{age}" />
+<input type="text" label="date" name="todoDate" bind:value="{todoDate}" />
+<input type="text" label="completed" name="completed" bind:value="{completed}" />
 <button on:click="{addTodo}">Add Todo</button>
 
 <h1>MongoDB Todos</h1>
@@ -73,5 +73,7 @@
 	<p>{todo.email}</p>
 	<p>{todo.age}</p>
 	<p>{todo.todoDate}</p>
+	<p>completed : {todo.completed}</p>
+	<input type="checkbox" name="completed" bind:checked="{todo.completed}" />
 	<hr />
 {/each}
