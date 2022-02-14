@@ -79,7 +79,7 @@
 	async function fetchTodos() {
 		const url = '/todos/api.json';
 		// we cannot get rid of the api.json.js or index.json.js endpoint
-		// since the fetch request return a "page object?" with the
+		// since the fetch request returns a "page object?" with the
 		// todos props therein as opposed to just the todos as JSON data
 		// const url = '/todos';
 		const response = await fetch(url);
@@ -92,6 +92,11 @@
 
 		// here, finally, we update the exported props "todos" in the client
 		// with the latest todos from the server
+
+		// case BBB api.json.js sent the return as body: { todos } inside an object
+		// todos = latestTodos.todos;
+
+		// case AAA api.json.js sent the return as body: todos
 		todos = latestTodos;
 	}
 
@@ -177,7 +182,17 @@
 <input type="text" label="date" name="completed" bind:value="{completed}" />
 <button on:click="{addTodo}">Add Todo</button>
 
+<h1>MongoDB Todos</h1>
 <hr />
+{#each todos as todo}
+	<p>{todo._id}</p>
+	<p>{todo.name}</p>
+	<p>{todo.email}</p>
+	<p>{todo.age}</p>
+	<p>{todo.todoDate}</p>
+	<hr />
+{/each}
+
 <button on:click="{buttonFetchPosts}">Fetch Posts from JSONPlaceholder</button>
 
 {#if placeholderPostsPromise}
@@ -199,17 +214,6 @@
 		{/await}
 	</div>
 {/if}
-
-<h1>MongoDB Todos</h1>
-<hr />
-{#each todos as todo}
-	<p>{todo._id}</p>
-	<p>{todo.name}</p>
-	<p>{todo.email}</p>
-	<p>{todo.age}</p>
-	<p>{todo.todoDate}</p>
-	<hr />
-{/each}
 
 <h1>External WP JSON POST Data</h1>
 

@@ -75,6 +75,7 @@ export async function get(request) {
 			// does not work
 			// ATTENTION !
 			// if we return the todos as an object then read BBB in /todos/index.svelte
+			// check the fetchTodos() function and how the todos are received there
 			// body: {
 			// 	todos
 			// }
@@ -86,6 +87,7 @@ export async function get(request) {
 
 			// ATTENTION !
 			// if we return the todos as an array then read AAA in /todos/index.svelte
+			// check the fetchTodos() function and how the todos are received there
 			body: todos
 		};
 	} catch (error) {
