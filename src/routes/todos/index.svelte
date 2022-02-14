@@ -54,6 +54,10 @@
 		// run this after a todo is added, changed or deleted on the server
 		fetchTodos();
 	}
+
+	function completeTodo(todo) {
+		console.log(todo._id);
+	}
 </script>
 
 <h1>Add Todo Data</h1>
@@ -74,6 +78,11 @@
 	<p>{todo.age}</p>
 	<p>{todo.todoDate}</p>
 	<p>completed : {todo.completed}</p>
-	<input type="checkbox" name="completed" bind:checked="{todo.completed}" />
+	<input
+		type="checkbox"
+		name="completed"
+		bind:checked="{todo.completed}"
+		on:change="{completeTodo(todo)}"
+	/>
 	<hr />
 {/each}
