@@ -8,8 +8,12 @@
 			const url = '/todos/api.json?completed=true';
 			const response = await fetch(url);
 			const latestTodos = await response.json();
+
 			// if return is body:{ todos } then todos = latestTodos.todos
 			// if return is body: todos then todos = latestTodos
+
+			// here we update the exported props "todos" in the client
+			// with the latest todos from the server
 			todos = latestTodos;
 		} catch (error) {
 			console.log('ERROR');
@@ -41,11 +45,11 @@
 <h3>MongoDB Completed Todos</h3>
 <hr />
 {#each todos as todo}
-	<!-- <p>{todo._id}</p> -->
+	<p>{todo._id}</p>
 	<p>{todo.name}</p>
-	<!-- <p>{todo.email}</p> -->
-	<!-- <p>{todo.age}</p> -->
-	<!-- <p>{todo.todoDate}</p> -->
+	<p>{todo.email}</p>
+	<p>{todo.age}</p>
+	<p>{todo.todoDate}</p>
 	<p>completed : {todo.completed}</p>
 	<input
 		type="checkbox"
