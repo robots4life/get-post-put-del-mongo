@@ -19,7 +19,7 @@ export async function get(request) {
 		const collection = db.collection(collectionName);
 
 		// show all documents in the collection in an array
-		let todos = await collection.find().toArray();
+		const todos = await collection.find().toArray();
 		// console.log(todos);
 
 		// show all completed todos in the collection in an array

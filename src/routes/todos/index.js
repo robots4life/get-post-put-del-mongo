@@ -1,10 +1,11 @@
 import clientPromise from '$lib/db';
+import { ObjectId } from 'mongodb';
 
 export async function get(request) {
 	try {
-		console.log(Date.now());
-		console.log(request.url.href);
-		console.log('index.js');
+		// console.log(Date.now());
+		// console.log(request.url.href);
+		// console.log('index.js');
 
 		// http://localhost:3000/todos?completed=true
 		// http://localhost:3000/todos?completed=false
@@ -42,22 +43,65 @@ export async function get(request) {
 }
 
 export async function post({ request }) {
-	const todoPayload = await request.json();
+	try {
+		const todoPayload = await request.json();
+		// now let's post the data in our collection
+		// we import the clientPromise from $lib/db.js
+		const dbConnection = await clientPromise;
+		const db = dbConnection.db(process.env['MONGODB_DB']);
+		const collectionName = process.env['MONGO_DB_TODOS_COLLECTION'];
+		const collection = db.collection(collectionName);
 
-	// now let's post the data in our collection
-	// we import the clientPromise from $lib/db.js
-	const dbConnection = await clientPromise;
-	const db = dbConnection.db(process.env['MONGODB_DB']);
-	const collectionName = process.env['MONGO_DB_TODOS_COLLECTION'];
-	const collection = db.collection(collectionName);
+		// insert the todoPayload into the collection
+		await collection.insertOne(todoPayload);
 
-	// insert the todoPayload into the collection
-	await collection.insertOne(todoPayload);
+		return {
+			status: 200,
+			body: {
+				todoPayload
+			}
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			body: {
+				error: 'Server error : ' + error
+			}
+		};
+	}
+}
 
-	return {
-		status: 200,
-		body: {
-			todoPayload
-		}
-	};
+export async function put({ request }) {
+	try {
+		const updatedTodo = await request.json();
+		console.log(updatedTodo._id);
+		console.log(updatedTodo.completed);
+		// now let's post the data in our collection
+		// we import the clientPromise from $lib/db.js
+		const dbConnection = await clientPromise;
+		const db = dbConnection.db(process.env['MONGODB_DB']);
+		const collectionName = process.env['MONGO_DB_TODOS_COLLECTION'];
+		const collection = db.collection(collectionName);
+
+		// put the updated todo in the document with the todo _id and update the todo data
+		// https://mongodb.github.io/node-mongodb-native/4.3/#update-a-document
+		await collection.updateOne(
+			{ _id: ObjectId(updatedTodo._id) },
+			// they key "completed" is updated with the value of what completed was set to in the client
+			{ $set: { completed: updatedTodo.completed } }
+		);
+		return {
+			status: 200,
+			body: {
+				updatedTodo
+			}
+		};
+	} catch (error) {
+		return {
+			status: 500,
+			body: {
+				error: 'Server error : ' + error
+			}
+		};
+	}
 }
