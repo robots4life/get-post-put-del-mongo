@@ -21,6 +21,7 @@
 		}
 	}
 
+	// update a todo
 	async function completeTodo(todo) {
 		try {
 			console.log(todo._id);
@@ -40,6 +41,30 @@
 			console.log(error);
 		}
 	}
+
+	// delete a todo
+	async function deleteTodo(todo) {
+		try {
+			console.log(todo._id);
+			const response = await fetch('/todos', {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(todo)
+			});
+			// the HTML we get back from the shadow endpoint
+			// const data = await response.text();
+			// console.log(data);
+
+			// keep client up to date or in sync with the server side todos
+			// run this after a todo is added, changed or deleted on the server
+			fetchTodos();
+		} catch (error) {
+			console.log('ERROR');
+			console.log(error);
+		}
+	}
 </script>
 
 <h3>MongoDB Completed Todos</h3>
@@ -50,12 +75,15 @@
 	<p>{todo.email}</p>
 	<p>{todo.age}</p>
 	<p>{todo.todoDate}</p>
-	<p>completed : {todo.completed}</p>
-	<input
-		type="checkbox"
-		name="completed"
-		bind:checked="{todo.completed}"
-		on:change="{completeTodo(todo)}"
-	/>
+	<p>
+		completed : {todo.completed}
+		<input
+			type="checkbox"
+			name="completed"
+			bind:checked="{todo.completed}"
+			on:change="{completeTodo(todo)}"
+		/>
+	</p>
+	<button on:click="{deleteTodo(todo)}">Delete Todo</button>
 	<hr />
 {/each}

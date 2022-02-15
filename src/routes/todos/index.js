@@ -78,7 +78,7 @@ export async function put({ request }) {
 		const updatedTodo = await request.json();
 		console.log(updatedTodo._id);
 		console.log(updatedTodo.completed);
-		// now let's post the data in our collection
+		// now let's update the data in our collection
 		// we import the clientPromise from $lib/db.js
 		const dbConnection = await clientPromise;
 		const db = dbConnection.db(process.env['MONGODB_DB']);
@@ -98,6 +98,29 @@ export async function put({ request }) {
 				updatedTodo
 			}
 		};
+	} catch (error) {
+		return {
+			status: 500,
+			body: {
+				error: 'Server error : ' + error
+			}
+		};
+	}
+}
+
+export async function del({ request }) {
+	try {
+		const deleteTodo = await request.json();
+		console.log(deleteTodo._id);
+		// now let's delete the data in our collection
+		// we import the clientPromise from $lib/db.js
+		const dbConnection = await clientPromise;
+		const db = dbConnection.db(process.env['MONGODB_DB']);
+		const collectionName = process.env['MONGO_DB_TODOS_COLLECTION'];
+		const collection = db.collection(collectionName);
+
+		const result = await collection.deleteOne({ _id: ObjectId(deleteTodo._id) });
+		console.log(result);
 	} catch (error) {
 		return {
 			status: 500,
