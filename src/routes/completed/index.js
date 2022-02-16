@@ -31,10 +31,3 @@ export async function get(request) {
 		};
 	}
 }
-
-const user = { id: 0, username: 'hans' };
-
-function haveFun({ id, username }) {
-	console.log(`hi ${username} your id is ${id}`);
-}
-haveFun(user);
