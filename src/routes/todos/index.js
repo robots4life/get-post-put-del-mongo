@@ -55,7 +55,8 @@ export async function post({ request }) {
 		const collection = db.collection(collectionName);
 
 		// insert the todoPayload into the collection
-		await collection.insertOne(todoPayload);
+		const result = await collection.insertOne(todoPayload);
+		console.log(result);
 
 		return {
 			status: 200,
@@ -87,11 +88,12 @@ export async function put({ request }) {
 
 		// put the updated todo in the document with the todo _id and update the todo data
 		// https://mongodb.github.io/node-mongodb-native/4.3/#update-a-document
-		await collection.updateOne(
+		const result = await collection.updateOne(
 			{ _id: ObjectId(updatedTodo._id) },
 			// they key "completed" is updated with the value of what completed was set to in the client
 			{ $set: { completed: updatedTodo.completed } }
 		);
+		console.log(result);
 		return {
 			status: 200,
 			body: {
