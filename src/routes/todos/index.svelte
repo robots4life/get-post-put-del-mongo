@@ -144,6 +144,7 @@
 
 <h3>Add Todo Data</h3>
 
+<h4>Just hit the "Add Todo" button, random data will be generated for the form fields.</h4>
 <input type="text" label="name" name="name" bind:value="{name}" />
 <input type="text" label="email" name="email" bind:value="{email}" />
 <input type="text" label="age" name="age" bind:value="{age}" />
