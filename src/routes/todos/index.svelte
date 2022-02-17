@@ -79,6 +79,13 @@
 			// keep client up to date or in sync with the server side todos
 			// run this after a todo is added, changed or deleted on the server
 			fetchTodos();
+
+			// clear form fields
+			name = '';
+			email = '';
+			age = '';
+			todoDate = '';
+			completed = '';
 		} catch (error) {
 			console.log('ERROR');
 			console.log(error);
