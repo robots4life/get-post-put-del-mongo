@@ -123,6 +123,13 @@ export async function del({ request }) {
 
 		const result = await collection.deleteOne({ _id: ObjectId(deleteTodo._id) });
 		console.log(result);
+
+		return {
+			status: 200,
+			body: {
+				message: 'Todo deleted'
+			}
+		};
 	} catch (error) {
 		return {
 			status: 500,
